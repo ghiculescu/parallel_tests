@@ -124,7 +124,9 @@ module ParallelTests
       num_tests = groups.map(&:size).inject(0, :+)
       tests_per_process = (num_processes == 0 ? 0 : num_tests / num_processes)
       puts "#{num_processes} processes for #{num_tests} #{name}s, ~ #{tests_per_process} #{name}s per process"
-      puts groups
+      groups.each_with_index {|list, index|
+        puts "group #{index} -- #{list.join(", ")}"
+      }
     end
 
     #exit with correct status code so rake parallel:test && echo 123 works
